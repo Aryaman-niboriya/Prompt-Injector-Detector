@@ -1,13 +1,16 @@
 {
   "name": "sentinelai-prompt-injector-detector",
   "version": "1.0.0",
-  "description": "SentinelAI: Multi-Layer Prompt Injection & Jailbreak Detection Gateway",
-  "main": "detector/sentinel-pipeline.js",
+  "description": "SentinelAI: Multi-Modal Prompt Injection & Jailbreak Defense Platform",
+  "main": "server.js",
   "scripts": {
-    "start": "node detector/sentinel-pipeline.js",
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node detector/sentinel-pipeline.js",
     "test:pipeline": "node detector/sentinel-pipeline.js",
     "test:layer1": "node detector/rule-detector-v2.js",
     "test:layer2": "node detector/semantic-guard.js",
+    "test:layer3": "node detector/layer3-comparator.js",
     "test:legacy-v1": "node detector/legacy/rule-detector-v1.js",
     "generate:dataset": "node injector/generate.js",
     "generate:html": "node injector/generate-html.js"
@@ -17,8 +20,18 @@
     "jailbreak-detection",
     "llm-security",
     "sentinelai",
-    "ai-safety"
+    "ai-safety",
+    "multi-modal"
   ],
   "author": "Aryaman",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "cheerio": "^1.2.0",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^2.4.5"
+  }
 }
