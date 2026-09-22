@@ -1,7 +1,8 @@
 const fs = require('fs');
+const path = require('path');
 
-const cleanContent = JSON.parse(fs.readFileSync('./clean-content.json', 'utf-8'));
-const attackPhrases = JSON.parse(fs.readFileSync('./attack-phrases.json', 'utf-8'));
+const cleanContent = JSON.parse(fs.readFileSync(path.join(__dirname, 'clean-content.json'), 'utf-8'));
+const attackPhrases = JSON.parse(fs.readFileSync(path.join(__dirname, 'attack-phrases.json'), 'utf-8'));
 
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -61,7 +62,7 @@ function generateHtmlDataset(totalSamples) {
 }
 
 const dataset = generateHtmlDataset(30);
-fs.writeFileSync('./test-dataset-html.json', JSON.stringify(dataset, null, 2));
+fs.writeFileSync(path.join(__dirname, 'test-dataset-html.json'), JSON.stringify(dataset, null, 2));
 
 console.log(`✅ ${dataset.length} HTML samples generate ho gaye`);
 console.log(`Malicious: ${dataset.filter(d => d.is_malicious).length}`);

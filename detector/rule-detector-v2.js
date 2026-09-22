@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 /**
  * SentinelAI - Rule-Based Detector V2 (Layer 1 Complete)
@@ -280,7 +281,7 @@ module.exports = {
 
 // Command Line Run Check
 if (require.main === module) {
-  const datasetPath = '../injector/test-dataset.json';
+  const datasetPath = path.resolve(__dirname, '../injector/test-dataset.json');
   if (fs.existsSync(datasetPath)) {
     const dataset = JSON.parse(fs.readFileSync(datasetPath, 'utf-8'));
     let truePositive = 0;

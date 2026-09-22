@@ -1,8 +1,9 @@
 const fs = require('fs');
+const path = require('path');
 
 // Dono JSON files load kar
-const cleanContent = JSON.parse(fs.readFileSync('./clean-content.json', 'utf-8'));
-const attackPhrases = JSON.parse(fs.readFileSync('./attack-phrases.json', 'utf-8'));
+const cleanContent = JSON.parse(fs.readFileSync(path.join(__dirname, 'clean-content.json'), 'utf-8'));
+const attackPhrases = JSON.parse(fs.readFileSync(path.join(__dirname, 'attack-phrases.json'), 'utf-8'));
 
 // Helper function — array se random item nikalne ke liye
 function getRandomItem(arr) {
@@ -54,7 +55,7 @@ function generateDataset(totalSamples) {
 
 // Generate kar aur file mein save kar
 const dataset = generateDataset(50); // 50 samples banayega — 25 safe, 25 malicious approx
-fs.writeFileSync('./test-dataset.json', JSON.stringify(dataset, null, 2));
+fs.writeFileSync(path.join(__dirname, 'test-dataset.json'), JSON.stringify(dataset, null, 2));
 
 console.log(`✅ ${dataset.length} samples generate ho gaye — test-dataset.json mein save hain`);
 console.log(`Malicious samples: ${dataset.filter(d => d.is_malicious).length}`);

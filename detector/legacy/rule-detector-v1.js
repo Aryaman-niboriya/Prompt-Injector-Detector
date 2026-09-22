@@ -40,7 +40,8 @@ function ruleBasedDetect(text) {
 
 // ===== TESTING SECTION =====
 // Apne pehle wale test-dataset.json ko load kar aur test kar
-const dataset = JSON.parse(fs.readFileSync('../injector/test-dataset.json', 'utf-8'));
+const path = require('path');
+const dataset = JSON.parse(fs.readFileSync(path.join(__dirname, '../../injector/test-dataset.json'), 'utf-8'));
 
 let truePositive = 0;  // Sahi se malicious pakड़ा
 let falseNegative = 0; // Malicious tha, miss ho gaya

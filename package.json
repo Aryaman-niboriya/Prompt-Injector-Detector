@@ -1,0 +1,24 @@
+{
+  "name": "sentinelai-prompt-injector-detector",
+  "version": "1.0.0",
+  "description": "SentinelAI: Multi-Layer Prompt Injection & Jailbreak Detection Gateway",
+  "main": "detector/sentinel-pipeline.js",
+  "scripts": {
+    "start": "node detector/sentinel-pipeline.js",
+    "test:pipeline": "node detector/sentinel-pipeline.js",
+    "test:layer1": "node detector/rule-detector-v2.js",
+    "test:layer2": "node detector/semantic-guard.js",
+    "test:legacy-v1": "node detector/legacy/rule-detector-v1.js",
+    "generate:dataset": "node injector/generate.js",
+    "generate:html": "node injector/generate-html.js"
+  },
+  "keywords": [
+    "prompt-injection",
+    "jailbreak-detection",
+    "llm-security",
+    "sentinelai",
+    "ai-safety"
+  ],
+  "author": "Aryaman",
+  "license": "ISC"
+}

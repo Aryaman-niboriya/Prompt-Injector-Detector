@@ -1,4 +1,5 @@
-require('dotenv').config({ path: '../.env' });
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const { ruleBasedDetectV2 } = require('./rule-detector-v2');
 const { semanticGuard } = require('./semantic-guard');
 
