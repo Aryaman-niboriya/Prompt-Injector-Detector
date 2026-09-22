@@ -1,13 +1,17 @@
 {
   "name": "injector",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "SentinelAI Synthetic Attack & Dataset Generator",
+  "main": "generate.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "node generate.js",
+    "generate:html": "node generate-html.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "dataset-generator",
+    "prompt-injection"
+  ],
+  "author": "Aryaman",
   "license": "ISC",
   "type": "commonjs"
 }
