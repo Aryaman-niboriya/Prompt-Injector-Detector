@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SentinelAI — Multi-Modal Threat Injection & Detection Platform</title>
-  <meta name="description" content="Next-generation multi-layer security gateway for LLMs. Injects & detects prompt injections across Prompts, HTML Webpages, and PDF documents.">
+  <meta name="description" content="Next-generation multi-layer security gateway for LLMs. Injects & detects prompt injections across Prompts, HTML Webpages, URLs, and PDF documents.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Ambient background glow elements -->
   <div class="bg-glow glow-1"></div>
   <div class="bg-glow glow-2"></div>
 
@@ -27,19 +26,22 @@
         </div>
         <div>
           <h1 class="logo-title">Sentinel<span>AI</span></h1>
-          <p class="logo-sub">Multi-Modal Prompt Injection & Security Gateway</p>
+          <p class="logo-sub">Multi-Modal Threat Gateway & Secure Agent</p>
         </div>
       </div>
 
       <nav class="nav-tabs" role="tablist">
         <button id="nav-btn-injector" class="nav-tab active" data-tab="tab-injector">
-          <span class="tab-icon">💉</span> Red Team Injector Studio
+          <span class="tab-icon">💉</span> Injector Studio
         </button>
         <button id="nav-btn-detector" class="nav-tab" data-tab="tab-detector">
-          <span class="tab-icon">🛡️</span> Blue Team Detector Gateway
+          <span class="tab-icon">🛡️</span> Detector Gateway
+        </button>
+        <button id="nav-btn-webagent" class="nav-tab" data-tab="tab-webagent">
+          <span class="tab-icon">🤖</span> Secure Web Agent (URL Reader)
         </button>
         <button id="nav-btn-matrix" class="nav-tab" data-tab="tab-matrix">
-          <span class="tab-icon">📊</span> Architecture & Defense Matrix
+          <span class="tab-icon">📊</span> Architecture Matrix
         </button>
       </nav>
 
@@ -65,7 +67,6 @@
         <div class="pill-badge red-badge">Adversarial Simulation Mode</div>
       </div>
 
-      <!-- Modality Switcher -->
       <div class="modality-switch-container">
         <div class="switch-label">Select Target Modality:</div>
         <div class="switch-buttons">
@@ -82,14 +83,12 @@
       </div>
 
       <div class="workspace-grid">
-        <!-- Input & Attack Config Card -->
         <div class="cyber-card config-card">
           <div class="card-header">
             <h3 class="card-title">1. Attack Configuration</h3>
             <span class="tag-label">Payload Synthesis</span>
           </div>
 
-          <!-- Base Content Area -->
           <div class="form-group">
             <div class="label-row">
               <label for="clean-content-input">Base Clean Content:</label>
@@ -98,7 +97,6 @@
             <textarea id="clean-content-input" rows="4" placeholder="Enter standard benign text or context here..."></textarea>
           </div>
 
-          <!-- Attack Seed Selector -->
           <div class="form-group">
             <div class="label-row">
               <label for="attack-seed-select">Attack Phrase Seed:</label>
@@ -113,18 +111,14 @@
             </select>
           </div>
 
-          <!-- Custom Attack Phrase (if custom selected) -->
           <div id="custom-phrase-container" class="form-group hidden">
             <label for="custom-attack-phrase">Custom Adversarial Phrase:</label>
             <input type="text" id="custom-attack-phrase" class="cyber-input" placeholder="Type your custom injection prompt...">
           </div>
 
-          <!-- Stealth Injection Technique -->
           <div class="form-group">
             <label for="technique-select">Stealth Injection Evasion Technique:</label>
-            <select id="technique-select" class="cyber-select">
-              <!-- Dynamically populated based on Text / HTML / PDF -->
-            </select>
+            <select id="technique-select" class="cyber-select"></select>
             <p id="technique-explainer" class="technique-desc-box">Technique explanation will appear here...</p>
           </div>
 
@@ -133,7 +127,6 @@
           </button>
         </div>
 
-        <!-- Output & Visual Comparison Card -->
         <div class="cyber-card preview-card">
           <div class="card-header">
             <h3 class="card-title">2. Injected Payload & Multi-View Inspection</h3>
@@ -145,7 +138,6 @@
             <button id="view-tab-raw" class="sub-tab" data-view="raw">🤖 AI Raw Ingestion View</button>
           </div>
 
-          <!-- Human View -->
           <div id="human-view-panel" class="view-panel active">
             <div class="view-description">What a human viewer sees in their browser or reader:</div>
             <div id="human-rendered-box" class="preview-box human-box">
@@ -153,7 +145,6 @@
             </div>
           </div>
 
-          <!-- AI Raw Stream View -->
           <div id="raw-view-panel" class="view-panel">
             <div class="view-description">What an LLM / Web Scraper ingests into its context (Attack Revealed):</div>
             <div id="raw-rendered-box" class="preview-box code-box">
@@ -161,7 +152,6 @@
             </div>
           </div>
 
-          <!-- Action Bar -->
           <div class="card-actions">
             <button id="btn-send-to-detector" class="action-btn send-btn" disabled>
               <span>🛡️</span> Send to Blue Team Detector
@@ -184,12 +174,11 @@
       <div class="panel-header">
         <div>
           <h2 class="section-title">Blue Team Multi-Layer Threat Gateway</h2>
-          <p class="section-desc">Inspect incoming prompts, scraped HTML, or uploaded PDF documents through <strong>Layer 1</strong>, <strong>Layer 3</strong>, and <strong>Layer 2</strong> security checkpoints.</p>
+          <p class="section-desc">Inspect incoming prompts, scraped HTML, live webpage URLs, or uploaded PDF documents through <strong>Layer 1</strong>, <strong>Layer 3</strong>, and <strong>Layer 2</strong> security checkpoints.</p>
         </div>
         <div class="pill-badge blue-badge">Defense Gateway Mode</div>
       </div>
 
-      <!-- Detector Modality Switcher -->
       <div class="modality-switch-container">
         <div class="switch-label">Select Input Type:</div>
         <div class="switch-buttons">
@@ -199,6 +188,9 @@
           <button id="det-mode-html" class="modality-btn" data-det-target="html">
             <span>🌐</span> Webpage (HTML Code)
           </button>
+          <button id="det-mode-url" class="modality-btn" data-det-target="url">
+            <span>🔗</span> Webpage URL (Link)
+          </button>
           <button id="det-mode-pdf" class="modality-btn" data-det-target="pdf">
             <span>📄</span> Document (PDF Upload)
           </button>
@@ -206,7 +198,6 @@
       </div>
 
       <div class="detector-layout">
-        <!-- Input Area Card -->
         <div class="cyber-card input-scan-card">
           <div class="card-header">
             <h3 class="card-title">1. Inbound Data Ingestion</h3>
@@ -216,13 +207,23 @@
             </div>
           </div>
 
-          <!-- Text / HTML Input Area -->
           <div id="text-input-wrapper" class="form-group">
-            <label for="detector-input-field">Input Content to Inspect:</label>
+            <label id="detector-input-label" for="detector-input-field">Input Content to Inspect:</label>
             <textarea id="detector-input-field" rows="6" placeholder="Paste prompt or HTML markup to inspect for adversarial attacks..."></textarea>
           </div>
 
-          <!-- PDF Upload Zone -->
+          <!-- URL Link Input Field -->
+          <div id="url-input-wrapper" class="form-group hidden">
+            <label for="detector-url-field">Webpage URL (Link) to Inspect & Browse:</label>
+            <div class="url-input-group">
+              <input type="text" id="detector-url-field" class="cyber-input" placeholder="http://localhost:3000/mock-page/poisoned">
+            </div>
+            <div class="url-presets-row">
+              <button id="btn-preset-poisoned-url" class="tiny-chip red-chip">🚨 Live Poisoned URL Mock</button>
+              <button id="btn-preset-clean-url" class="tiny-chip">✅ Live Clean URL Mock</button>
+            </div>
+          </div>
+
           <div id="pdf-upload-wrapper" class="form-group hidden">
             <label>Upload Target PDF Document:</label>
             <div id="drop-zone" class="drop-zone">
@@ -247,14 +248,12 @@
           </button>
         </div>
 
-        <!-- Live Scan Results Card -->
         <div class="cyber-card results-card">
           <div class="card-header">
             <h3 class="card-title">2. Real-Time Threat Audit</h3>
             <div id="scan-timer-badge" class="badge-pill">Awaiting Inbound Data</div>
           </div>
 
-          <!-- Hero Gatekeeper Decision Banner -->
           <div id="hero-decision-banner" class="decision-banner idle">
             <div class="decision-icon">🛡️</div>
             <div class="decision-details">
@@ -264,9 +263,7 @@
             <div id="decision-layer-tag" class="layer-pill hidden">Layer Tag</div>
           </div>
 
-          <!-- Multi-Layer Inspection Verification Grid -->
           <div class="layer-inspection-grid">
-            <!-- Layer 1 Card -->
             <div id="card-layer1" class="layer-card">
               <div class="layer-card-top">
                 <span class="layer-num">LAYER 1</span>
@@ -281,7 +278,6 @@
               <div id="l1-match-info" class="layer-match-info hidden"></div>
             </div>
 
-            <!-- Layer 3 Card -->
             <div id="card-layer3" class="layer-card">
               <div class="layer-card-top">
                 <span class="layer-num">LAYER 3</span>
@@ -296,7 +292,6 @@
               <div id="l3-match-info" class="layer-match-info hidden"></div>
             </div>
 
-            <!-- Layer 2 Card -->
             <div id="card-layer2" class="layer-card">
               <div class="layer-card-top">
                 <span class="layer-num">LAYER 2</span>
@@ -312,7 +307,6 @@
             </div>
           </div>
 
-          <!-- Optimization & Summary Bar -->
           <div class="summary-stats-bar">
             <div class="stat-item">
               <span class="stat-label">Total Latency</span>
@@ -332,7 +326,74 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- TAB 3: ARCHITECTURE & DEFENSE MATRIX -->
+    <!-- TAB 3: SECURE WEB AGENT (URL READER & HIJACK SHIELD) -->
+    <!-- ============================================================ -->
+    <section id="tab-webagent" class="tab-panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="section-title">🤖 Secure Web-Browsing AI Agent</h2>
+          <p class="section-desc">An AI Agent that fetches webpage links (URLs), passes scraped content through <strong>SentinelAI Pre-Execution Firewall</strong>, and protects itself against <strong>Indirect Prompt Injections & Agent Hijacking</strong>.</p>
+        </div>
+        <div class="pill-badge purple-badge">Indirect Prompt Injection Shield Active</div>
+      </div>
+
+      <div class="workspace-grid">
+        <!-- Web Agent Input Card -->
+        <div class="cyber-card config-card">
+          <div class="card-header">
+            <h3 class="card-title">1. Web Agent Browsing Task</h3>
+            <span class="tag-label">URL Fetch & Shield</span>
+          </div>
+
+          <div class="form-group">
+            <label for="agent-url-input">Target Webpage Link (URL):</label>
+            <input type="text" id="agent-url-input" class="cyber-input" value="http://localhost:3000/mock-page/poisoned" placeholder="http://localhost:3000/mock-page/poisoned">
+          </div>
+
+          <div class="url-presets-row" style="margin-bottom: 18px;">
+            <button id="btn-agent-preset-poisoned" class="tiny-chip red-chip">🚨 Test Poisoned Live URL</button>
+            <button id="btn-agent-preset-clean" class="tiny-chip">✅ Test Clean Live URL</button>
+          </div>
+
+          <div class="form-group">
+            <label for="agent-query-input">User Query / Instruction for Agent:</label>
+            <textarea id="agent-query-input" rows="3" placeholder="Summarize the main points of this webpage.">Summarize the main points of this webpage and extract key findings.</textarea>
+          </div>
+
+          <button id="btn-run-agent" class="primary-btn glow-blue-btn">
+            <span class="btn-icon">🌐</span> Browse Webpage & Execute Agent
+          </button>
+        </div>
+
+        <!-- Web Agent Output & Hijack Defense Banner -->
+        <div class="cyber-card preview-card">
+          <div class="card-header">
+            <h3 class="card-title">2. Agent Security Status & AI Output</h3>
+            <div id="agent-status-badge" class="badge-pill">Idle</div>
+          </div>
+
+          <!-- Hero Agent Defense Banner -->
+          <div id="agent-hero-banner" class="decision-banner idle" style="margin-bottom: 16px;">
+            <div class="decision-icon">🤖</div>
+            <div class="decision-details">
+              <div id="agent-banner-title" class="decision-headline">Agent Ready</div>
+              <div id="agent-banner-sub" class="decision-subtext">Click "Browse Webpage & Execute Agent" to test live URL inspection.</div>
+            </div>
+          </div>
+
+          <!-- Agent Output Box -->
+          <div class="form-group">
+            <label>Agent Output & Structured Response:</label>
+            <div id="agent-response-box" class="preview-box code-box" style="min-height: 200px;">
+              <pre><code id="agent-code-output">// Agent execution logs and response will appear here...</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- TAB 4: ARCHITECTURE & DEFENSE MATRIX -->
     <!-- ============================================================ -->
     <section id="tab-matrix" class="tab-panel">
       <div class="panel-header">
@@ -343,7 +404,6 @@
         <div class="pill-badge purple-badge">Academic & Technical Reference</div>
       </div>
 
-      <!-- Comparative Defense Table -->
       <div class="cyber-card matrix-card">
         <h3 class="card-title">Multi-Layer Threat Capability Matrix</h3>
         <div class="table-responsive">
