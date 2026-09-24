@@ -156,11 +156,11 @@ function detectEncodedPayloads(text) {
 
 // Fuzzy & Multi-Keyword Co-occurrence Analysis
 const keywordClusters = {
-  actions: ['ignore', 'disregard', 'forget', 'bypass', 'override', 'disable', 'drop', 'stop', 'remove', 'unrestrict', 'abandon'],
-  targets: ['rules', 'instructions', 'guidelines', 'filters', 'restrictions', 'constraints', 'guardrails', 'protocols', 'directives', 'prompts'],
-  system_context: ['system', 'developer', 'admin', 'root', 'prompt', 'model', 'agent', 'internal', 'safety', 'jailbreak'],
-  extraction_actions: ['reveal', 'show', 'print', 'output', 'leak', 'dump', 'display', 'repeat', 'tell', 'summarize'],
-  confidential_targets: ['prompt', 'instructions', 'secret', 'confidential', 'initial', 'hidden', 'rules', 'password', 'keys']
+  actions: ['ignore', 'disregard', 'forget', 'bypass', 'override', 'unrestrict', 'abandon'],
+  targets: ['system prompt', 'system instructions', 'safety rules', 'safety guidelines', 'content filters', 'security restrictions', 'guardrails', 'system directives'],
+  system_context: ['system prompt', 'developer mode', 'jailbreak', 'dan', 'admin mode', 'safety filter'],
+  extraction_actions: ['reveal', 'leak', 'dump', 'exfiltrate'],
+  confidential_targets: ['system prompt', 'secret key', 'confidential instructions', 'initial prompt', 'hidden prompt', 'api key', 'password']
 };
 
 function checkCoOccurrence(text) {
