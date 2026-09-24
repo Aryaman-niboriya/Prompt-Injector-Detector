@@ -1,3 +1,4 @@
+const { runSecureWebAgent } = require('./agent/web-agent');
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -157,6 +158,22 @@ app.get('/api/health', (req, res) => {
     supported_modalities: ['text', 'html', 'pdf'],
     timestamp: new Date().toISOString()
   });
+});
+
+
+// ============================================================
+// SECURE AI AGENT ENDPOINTS (Web Browsing & Indirect Defense)
+// ============================================================
+
+// 11. Browse & Analyze Webpage Safely (Indirect Prompt Injection Shielded)
+app.post('/api/agent/browse', async (req, res) => {
+  try {
+    const { url, rawHtml, userQuery } = req.body;
+    const result = await runSecureWebAgent({ url, rawHtml, userQuery });
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.listen(PORT, () => {

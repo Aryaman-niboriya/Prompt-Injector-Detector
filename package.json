@@ -13,7 +13,8 @@
     "test:layer3": "node detector/layer3-comparator.js",
     "test:legacy-v1": "node detector/legacy/rule-detector-v1.js",
     "generate:dataset": "node injector/generate.js",
-    "generate:html": "node injector/generate-html.js"
+    "generate:html": "node injector/generate-html.js",
+    "test:agent": "node agent/web-agent.js"
   },
   "keywords": [
     "prompt-injection",

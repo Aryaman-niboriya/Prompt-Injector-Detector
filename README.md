@@ -25,6 +25,13 @@
 
 ---
 
+## 🤖 Secure Web-Browsing AI Agent (agent/web-agent.js)
+
+- **Indirect Prompt Injection Defense:** Protects AI Agents from being hijacked when reading external web pages, scraped HTML, or URLs.
+- **Pre-Execution Firewall:** Intercepts scraped HTML before sending it to the LLM context.
+- **Quarantine Mode:** If hidden CSS/DOM injections (display:none, 0px font, comments) or adversarial prompts are detected, the agent halts execution and returns a security alert.
+- **Safe Summarization:** If clean, the agent extracts visible text and produces a safe structured summary using Gemini.
+
 ## 📁 Repository Directory Structure
 
 ```text
