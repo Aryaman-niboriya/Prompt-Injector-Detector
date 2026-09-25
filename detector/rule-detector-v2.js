@@ -134,7 +134,8 @@ function detectEncodedPayloads(text) {
           if (matchedThreat) break;
         }
 
-        if (matchedThreat || hasEncodingIntent) {
+        // Only flag as a security threat if the decoded string contains an actual prompt injection payload
+        if (matchedThreat) {
           detectedPayloads.push({
             original: candidate,
             decoded: decoded,
