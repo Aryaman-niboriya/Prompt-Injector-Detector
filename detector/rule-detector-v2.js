@@ -14,24 +14,26 @@ const path = require('path');
 // Categorized Suspicious Patterns
 const categorizedPatterns = {
   direct_override: [
-    /ignore\s+(all\s+)?(previous|prior|above|initial)\s+(instructions|rules|prompts|commands|constraints|directives)/i,
-    /disregard\s+(all\s+)?(previous|prior|above)\s+(instructions|rules|prompts|constraints)/i,
+    /ignore\s+(all\s+)?(previous\s+|prior\s+|above\s+|initial\s+)?(instructions|rules|prompts|commands|constraints|directives)/i,
+    /disregard\s+(all\s+)?(previous\s+|prior\s+|above\s+)?(instructions|rules|prompts|constraints)/i,
     /forget\s+(all\s+|everything\s+)?(you\s+)?(were\s+)?(told|instructed|given|taught)/i,
-    /bypass\s+(all\s+)?(safety\s+|security\s+)?(filters|rules|protocols|restrictions|guidelines)/i,
+    /bypass\s+(all\s+)?(safety\s+|security\s+)?(filters|rules|protocols|restrictions|guidelines|guardrails)/i,
     /override\s+(all\s+)?(system\s+|developer\s+)?(prompts|rules|instructions|settings)/i,
     /(do\s+not|stop)\s+follow(ing)?\s+(your|the|any)\s+(rules|instructions|guidelines|safety)/i,
     /clear\s+(all\s+)?(previous\s+)?context/i,
     /drop\s+all\s+(prior\s+)?constraints/i,
     /ignore\s+the\s+above\s+and/i,
     /start\s+over\s+from\s+scratch\s+without\s+rules/i,
-    /ignore\s+(all\s+)?rules/i
+    /ignore\s+(all\s+)?rules/i,
+    /combine\s+(the\s+)?tokens?:?/i
   ],
   roleplay_jailbreak: [
-    /you\s+are\s+now\s+(DAN|jailbroken|unrestricted|an\s+unfiltered|an\s+evil|freed)/i,
-    /act\s+as\s+(if\s+)?(you\s+)?(have\s+)?no\s+(restrictions|rules|filters|limits|censorship)/i,
+    /you\s+are\s+now\s+(DAN|AIM|jailbroken|unrestricted|an\s+unfiltered|an\s+evil|freed)/i,
+    /act\s+as\s+(AIM|DAN|an\s+unrestricted|an\s+unfiltered|a\s+jailbroken)/i,
+    /act\s+as\s+(if\s+)?(you\s+)?(have\s+)?no\s+(restrictions|rules|filters|limits|censorship|moral|ethical)/i,
     /pretend\s+(that\s+)?(you\s+are|to\s+be)\s+(not\s+an\s+AI|human|unfiltered|evil|a\s+hacker)/i,
     /developer\s+mode\s+(enabled|activated|on|true)/i,
-    /enter\s+(god\s+mode|unrestricted\s+mode|chaos\s+mode|jailbreak\s+mode)/i,
+    /enter\s+(developer\s+mode|god\s+mode|unrestricted\s+mode|chaos\s+mode|jailbreak\s+mode)/i,
     /simulate\s+a\s+(world|system|AI)\s+where\s+(there\s+are\s+no\s+rules|safety\s+is\s+off)/i,
     /let('s|\s+us)\s+play\s+a\s+game\s+where\s+you\s+have\s+no\s+(filters|rules|limits)/i,
     /as\s+an\s+AI\s+without\s+(limitations|restrictions|rules|ethics)/i,
@@ -57,7 +59,7 @@ const categorizedPatterns = {
     /end\s+of\s+initial\s+prompt/i
   ],
   extraction_attempts: [
-    /(reveal|show|print|output|display|repeat|leak|dump)\s+(me\s+)?(your\s+)?(system\s+prompt|initial\s+instructions|hidden\s+rules|system\s+message)/i,
+    /(reveal|show|print|output|display|repeat|leak|dump)\s+(out\s+)?(me\s+)?(your\s+|the\s+)?(hidden\s+|confidential\s+|secret\s+)?(system\s+prompt|initial\s+prompt|prompt|initial\s+instructions|instructions|rules|system\s+message)/i,
     /what\s+(are\s+)?(your\s+)?(initial\s+|secret\s+|internal\s+)?(instructions|prompts|rules|system\s+prompt)/i,
     /tell\s+me\s+(what\s+you\s+were\s+told\s+to\s+do|your\s+system\s+instructions)/i,
     /output\s+the\s+text\s+above\s+verbatim/i,
@@ -116,6 +118,37 @@ function detectEncodedPayloads(text) {
 
   const base64Regex = /(?:[A-Za-z0-9+/]{4}){2,}(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?/g;
   const matches = text.match(base64Regex) || [];
+
+  // Hex encoded strings (e.g. 69676e6f7265...)
+  const hexRegex = /\b([0-9a-fA-F]{2}){8,}\b/g;
+  const hexMatches = text.match(hexRegex) || [];
+
+  for (const candidate of hexMatches) {
+    try {
+      const decoded = Buffer.from(candidate, 'hex').toString('utf-8');
+      const isPrintable = /^[\x20-\x7E\s]+$/.test(decoded);
+      if (isPrintable && decoded.trim().length > 3) {
+        let matchedThreat = null;
+        for (const [category, patterns] of Object.entries(categorizedPatterns)) {
+          for (const pattern of patterns) {
+            if (pattern.test(decoded)) {
+              matchedThreat = { category, regex: pattern.source };
+              break;
+            }
+          }
+          if (matchedThreat) break;
+        }
+        if (matchedThreat) {
+          detectedPayloads.push({
+            original: candidate,
+            decoded: decoded,
+            threat: matchedThreat,
+            type: 'hex'
+          });
+        }
+      }
+    } catch (e) {}
+  }
 
   for (const candidate of matches) {
     if (candidate.length < 8) continue;

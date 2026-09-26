@@ -14,7 +14,9 @@
     "test:legacy-v1": "node detector/legacy/rule-detector-v1.js",
     "generate:dataset": "node injector/generate.js",
     "generate:html": "node injector/generate-html.js",
-    "test:agent": "node agent/web-agent.js"
+    "test:agent": "node agent/web-agent.js",
+    "arena": "node benchmark/arena-runner.js",
+    "arena:fast": "node -e \"require('./benchmark/arena-runner').runArenaBenchmark({ skipLayer2: true }).then(r => console.log(JSON.stringify(r.metrics, null, 2)))\""
   },
   "keywords": [
     "prompt-injection",

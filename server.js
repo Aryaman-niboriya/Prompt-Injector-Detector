@@ -1,3 +1,4 @@
+const { runArenaBenchmark } = require('./benchmark/arena-runner');
 const { runSecureWebAgent } = require('./agent/web-agent');
 const express = require('express');
 const multer = require('multer');
@@ -228,6 +229,22 @@ app.get('/mock-page/clean', (req, res) => {
     </body>
     </html>
   `);
+});
+
+// ============================================================
+// RED-VS-BLUE LIVE ARENA BENCHMARK ENDPOINT
+// ============================================================
+
+// 12. Run Red-vs-Blue Automated Multi-Modal Benchmark
+app.post('/api/benchmark/run', async (req, res) => {
+  try {
+    const { mode = 'fast' } = req.body;
+    const skipLayer2 = mode === 'fast';
+    const report = await runArenaBenchmark({ skipLayer2 });
+    res.json(report);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.listen(PORT, () => {

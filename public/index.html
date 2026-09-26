@@ -43,6 +43,9 @@
         <button id="nav-btn-matrix" class="nav-tab" data-tab="tab-matrix">
           <span class="tab-icon">📊</span> Architecture Matrix
         </button>
+        <button id="nav-btn-arena" class="nav-tab" data-tab="tab-arena">
+          <span class="tab-icon">⚔️</span> Red-vs-Blue Arena
+        </button>
       </nav>
 
       <div class="gateway-status">
@@ -473,6 +476,132 @@
                 <td><span class="badge-neutral">✅ Allowed</span></td>
                 <td><span class="badge-neutral">✅ Allowed</span></td>
                 <td><strong class="green-text">Allowed (All Pass)</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================ -->
+    <!-- TAB 5: RED-VS-BLUE LIVE ARENA BENCHMARK -->
+    <!-- ============================================================ -->
+    <section id="tab-arena" class="tab-panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="section-title">⚔️ Red-vs-Blue Live Arena & Benchmark Suite</h2>
+          <p class="section-desc">Automated 50-sample multi-modal stress test evaluating SentinelAI across real attacks, CSS stealth, PDF tampering, and benign controls.</p>
+        </div>
+        <div class="arena-control-group">
+          <div class="mode-select-wrap">
+            <label for="arena-mode-select">Mode:</label>
+            <select id="arena-mode-select" class="cyber-select-small">
+              <option value="fast" selected>⚡ Fast Defense (Sub-Second)</option>
+              <option value="full">🧠 Full Cascade (Gemini L2)</option>
+            </select>
+          </div>
+          <button id="btn-run-arena" class="primary-btn glow-gold-btn">
+            <span class="btn-icon">▶</span> Run 50-Vector Stress Test
+          </button>
+          <button id="btn-export-audit" class="secondary-btn" style="display:none;">
+            <span class="btn-icon">📥</span> Export Audit (.md)
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="kpi-grid">
+        <div class="cyber-card kpi-card">
+          <div class="kpi-icon">🎯</div>
+          <div class="kpi-body">
+            <span class="kpi-label">Defense Accuracy</span>
+            <div id="kpi-accuracy" class="kpi-val green-glow">--</div>
+            <span id="kpi-accuracy-sub" class="kpi-sub">Ready to benchmark</span>
+          </div>
+        </div>
+
+        <div class="cyber-card kpi-card">
+          <div class="kpi-icon">💰</div>
+          <div class="kpi-body">
+            <span class="kpi-label">₹0 Cost Interceptions</span>
+            <div id="kpi-cost" class="kpi-val cyan-glow">--</div>
+            <span id="kpi-cost-sub" class="kpi-sub">Early-exit before LLM API</span>
+          </div>
+        </div>
+
+        <div class="cyber-card kpi-card">
+          <div class="kpi-icon">⚡</div>
+          <div class="kpi-body">
+            <span class="kpi-label">Avg Interception Latency</span>
+            <div id="kpi-latency" class="kpi-val yellow-glow">--</div>
+            <span id="kpi-latency-sub" class="kpi-sub">Sub-millisecond L1/L3 speed</span>
+          </div>
+        </div>
+
+        <div class="cyber-card kpi-card">
+          <div class="kpi-icon">🛡️</div>
+          <div class="kpi-body">
+            <span class="kpi-label">Attacks Neutralized</span>
+            <div id="kpi-threats" class="kpi-val red-glow">--</div>
+            <span id="kpi-threats-sub" class="kpi-sub">0 Bypasses / 0 False Positives</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer Breakdown Bar Card -->
+      <div class="cyber-card" style="margin-top: 18px; margin-bottom: 24px;">
+        <div class="card-header">
+          <h3 class="card-title">Threat Interception Distribution by Security Layer</h3>
+          <span id="arena-samples-badge" class="tag-label">50 Multi-Modal Vectors (25 Attacks, 25 Clean)</span>
+        </div>
+        
+        <div class="distribution-bar-wrapper">
+          <div id="bar-layer1" class="dist-bar bar-layer1" style="width: 60%;" title="Layer 1: Rule-Based Guard">L1: Rule-Based (60%)</div>
+          <div id="bar-layer3" class="dist-bar bar-layer3" style="width: 40%;" title="Layer 3: Structural Comparator">L3: Structural (40%)</div>
+          <div id="bar-layer2" class="dist-bar bar-layer2" style="width: 0%;" title="Layer 2: Semantic LLM Guard">L2: LLM (0%)</div>
+        </div>
+
+        <div class="layer-legend-row">
+          <div class="legend-item"><span class="legend-dot dot-l1"></span> <strong>Layer 1 (Fast Regex, Homoglyphs, Decoders):</strong> <span id="legend-l1-val">15 attacks (60%)</span></div>
+          <div class="legend-item"><span class="legend-dot dot-l3"></span> <strong>Layer 3 (CSS Stealth & PDF Comparator):</strong> <span id="legend-l3-val">10 attacks (40%)</span></div>
+          <div class="legend-item"><span class="legend-dot dot-l2"></span> <strong>Layer 2 (Gemini LLM Semantic Guard):</strong> <span id="legend-l2-val">0 attacks (Early-exit saved ₹0)</span></div>
+        </div>
+      </div>
+
+      <!-- Live Attack Results Table -->
+      <div class="cyber-card">
+        <div class="card-header">
+          <h3 class="card-title">Live Attack Vectors & Evaluation Results (50 Vectors)</h3>
+          <div class="table-filter-group">
+            <button class="arena-filter-btn active" data-filter="all">All (50)</button>
+            <button class="arena-filter-btn" data-filter="attacks">Attacks (25)</button>
+            <button class="arena-filter-btn" data-filter="clean">Clean (25)</button>
+            <button class="arena-filter-btn" data-filter="text">Text (28)</button>
+            <button class="arena-filter-btn" data-filter="html">HTML (13)</button>
+            <button class="arena-filter-btn" data-filter="pdf">PDF (9)</button>
+          </div>
+        </div>
+
+        <div class="table-responsive" style="max-height: 520px; overflow-y: auto;">
+          <table class="matrix-table arena-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Modality</th>
+                <th>Vector / Attack Name</th>
+                <th>Category / Technique</th>
+                <th>Expected</th>
+                <th>Gatekeeper Verdict</th>
+                <th>Layer Caught</th>
+                <th>Speed</th>
+              </tr>
+            </thead>
+            <tbody id="arena-table-body">
+              <tr>
+                <td colspan="8" style="text-align: center; color: var(--text-dim); padding: 32px;">
+                  Click "▶ Run 50-Vector Stress Test" above to execute the automated Red-vs-Blue Arena benchmark.
+                </td>
               </tr>
             </tbody>
           </table>
