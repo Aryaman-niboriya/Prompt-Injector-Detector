@@ -1,4 +1,5 @@
 const { runArenaBenchmark } = require('./benchmark/arena-runner');
+const { ragGuard } = require('./rag/rag-guard');
 const { runSecureWebAgent } = require('./agent/web-agent');
 const express = require('express');
 const multer = require('multer');
@@ -236,6 +237,24 @@ app.get('/mock-page/clean', (req, res) => {
 // ============================================================
 
 // 12. Run Red-vs-Blue Automated Multi-Modal Benchmark
+
+// ============================================================
+// RAG POISONING SHIELD ENDPOINT
+// ============================================================
+
+// RAG Guard: Scan Vector DB chunks before they reach the LLM
+app.post('/api/rag/scan', async (req, res) => {
+  try {
+    const { chunks, options = {} } = req.body;
+    if (!chunks || !Array.isArray(chunks)) {
+      return res.status(400).json({ error: 'Request body must have a "chunks" array.' });
+    }
+    const result = await ragGuard(chunks, options);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 app.post('/api/benchmark/run', async (req, res) => {
   try {
     const { mode = 'fast' } = req.body;

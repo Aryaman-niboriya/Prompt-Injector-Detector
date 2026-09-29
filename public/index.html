@@ -46,6 +46,9 @@
         <button id="nav-btn-arena" class="nav-tab" data-tab="tab-arena">
           <span class="tab-icon">⚔️</span> Red-vs-Blue Arena
         </button>
+        <button id="nav-btn-ragguard" class="nav-tab" data-tab="tab-ragguard">
+          <span class="tab-icon">🧬</span> RAG Guard
+        </button>
       </nav>
 
       <div class="gateway-status">
@@ -611,6 +614,120 @@
 
   </main>
 
+
+    <!-- ================================================================ -->
+    <!-- RAG POISONING SHIELD TAB                                          -->
+    <!-- ================================================================ -->
+    <section id="tab-ragguard" class="tab-panel">
+      <div class="section-header">
+        <h2 class="section-title">🧬 RAG Vector DB Poisoning Shield</h2>
+        <p class="section-subtitle">Scan chunks retrieved from your Vector Database before they reach the LLM. Poisoned chunks are quarantined — clean chunks still answer the user.</p>
+      </div>
+
+      <!-- How It Works Banner -->
+      <div class="rag-flow-banner">
+        <div class="rag-flow-step">
+          <div class="flow-icon">📂</div>
+          <div class="flow-label">Vector DB</div>
+          <div class="flow-desc">Retrieves top-K chunks</div>
+        </div>
+        <div class="rag-flow-arrow">→</div>
+        <div class="rag-flow-step rag-flow-sentinel">
+          <div class="flow-icon">🛡️</div>
+          <div class="flow-label">SentinelAI</div>
+          <div class="flow-desc">3-layer scan on each chunk</div>
+        </div>
+        <div class="rag-flow-arrow">→</div>
+        <div class="rag-flow-step rag-flow-clean">
+          <div class="flow-icon">✅</div>
+          <div class="flow-label">Clean Chunks</div>
+          <div class="flow-desc">Passed to LLM safely</div>
+        </div>
+        <div class="rag-flow-arrow rag-flow-block">✂️</div>
+        <div class="rag-flow-step rag-flow-poison">
+          <div class="flow-icon">🚨</div>
+          <div class="flow-label">Poisoned Chunks</div>
+          <div class="flow-desc">Quarantined — never reach LLM</div>
+        </div>
+      </div>
+
+      <!-- Chunk Input Area -->
+      <div class="card rag-input-card">
+        <div class="card-header">
+          <h3>📋 Enter RAG Chunks (Vector DB Retrieval Simulation)</h3>
+          <div class="rag-preset-btns">
+            <button id="rag-preset-demo" class="btn btn-outline btn-sm">Load Demo (HR Chatbot)</button>
+            <button id="rag-clear" class="btn btn-ghost btn-sm">Clear All</button>
+          </div>
+        </div>
+        <div id="rag-chunks-container" class="rag-chunks-list">
+          <!-- Chunks dynamically added here -->
+        </div>
+        <button id="rag-add-chunk" class="btn btn-ghost btn-sm rag-add-btn">+ Add Chunk</button>
+      </div>
+
+      <!-- Scan Button -->
+      <div class="rag-scan-controls">
+        <button id="rag-scan-btn" class="btn btn-primary btn-large">
+          <span class="btn-icon">🔍</span>
+          Scan Chunks for Poisoning
+        </button>
+        <div class="rag-scan-status" id="rag-scan-status"></div>
+      </div>
+
+      <!-- Results Dashboard -->
+      <div id="rag-results" class="rag-results-area" style="display:none;">
+        <!-- KPI Row -->
+        <div class="rag-kpi-row">
+          <div class="rag-kpi-card rag-kpi-total">
+            <div class="kpi-num" id="rag-kpi-total">0</div>
+            <div class="kpi-label">Total Chunks</div>
+          </div>
+          <div class="rag-kpi-card rag-kpi-clean">
+            <div class="kpi-num" id="rag-kpi-clean">0</div>
+            <div class="kpi-label">✅ Clean</div>
+          </div>
+          <div class="rag-kpi-card rag-kpi-poison">
+            <div class="kpi-num" id="rag-kpi-poison">0</div>
+            <div class="kpi-label">🚨 Quarantined</div>
+          </div>
+          <div class="rag-kpi-card rag-kpi-time">
+            <div class="kpi-num" id="rag-kpi-time">0ms</div>
+            <div class="kpi-label">Scan Time</div>
+          </div>
+        </div>
+
+        <!-- Verdict Banner -->
+        <div id="rag-verdict-banner" class="rag-verdict-banner"></div>
+
+        <!-- Chunk Scan Result Table -->
+        <div class="card">
+          <div class="card-header"><h3>🔬 Chunk-by-Chunk Scan Report</h3></div>
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Chunk ID</th>
+                <th>Source</th>
+                <th>Status</th>
+                <th>Blocked By</th>
+                <th>Threat Type</th>
+                <th>Latency</th>
+                <th>Preview</th>
+              </tr>
+            </thead>
+            <tbody id="rag-result-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Safe Context Output -->
+        <div class="card rag-context-card">
+          <div class="card-header">
+            <h3>✅ Safe LLM Context (What the LLM Will See)</h3>
+          </div>
+          <pre id="rag-safe-context" class="rag-context-box"></pre>
+        </div>
+      </div>
+    </section>
   <footer class="app-footer">
     <div class="footer-container">
       <p>SentinelAI Security Framework • Multi-Agent Threat Gateway • Academic Session Jul–Dec 2026</p>

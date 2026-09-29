@@ -1355,3 +1355,256 @@ textarea:focus, .cyber-input:focus, .cyber-select:focus {
   font-size: 0.75rem;
   font-weight: 600;
 }
+
+/* ================================================================ */
+/* RAG POISONING SHIELD STYLES                                        */
+/* ================================================================ */
+
+/* Flow Banner */
+.rag-flow-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 16px;
+  padding: 20px 28px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+
+.rag-flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(51, 65, 85, 0.6);
+  border-radius: 12px;
+  padding: 14px 20px;
+  min-width: 120px;
+  border: 1px solid rgba(100,116,139,0.3);
+}
+
+.rag-flow-step.rag-flow-sentinel {
+  border-color: rgba(139, 92, 246, 0.6);
+  background: rgba(139, 92, 246, 0.15);
+}
+
+.rag-flow-step.rag-flow-clean {
+  border-color: rgba(34, 197, 94, 0.5);
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.rag-flow-step.rag-flow-poison {
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.flow-icon { font-size: 1.8rem; }
+.flow-label { font-weight: 700; font-size: 0.85rem; color: #e2e8f0; }
+.flow-desc { font-size: 0.7rem; color: #94a3b8; text-align: center; }
+
+.rag-flow-arrow {
+  font-size: 1.4rem;
+  color: #475569;
+  flex-shrink: 0;
+}
+
+.rag-flow-arrow.rag-flow-block {
+  color: #ef4444;
+}
+
+/* Chunk Input Card */
+.rag-input-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rag-preset-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.rag-chunks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.rag-chunk-row {
+  display: grid;
+  grid-template-columns: 120px 1fr auto auto;
+  gap: 10px;
+  align-items: start;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(100,116,139,0.25);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.rag-chunk-row .chunk-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 600;
+  padding-top: 8px;
+}
+
+.rag-chunk-row input,
+.rag-chunk-row select {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(100,116,139,0.3);
+  border-radius: 8px;
+  color: #e2e8f0;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.rag-chunk-row textarea {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(100,116,139,0.3);
+  border-radius: 8px;
+  color: #e2e8f0;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  width: 100%;
+  resize: vertical;
+  min-height: 60px;
+  font-family: inherit;
+}
+
+.rag-chunk-delete {
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 8px;
+  color: #ef4444;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  align-self: center;
+}
+
+.rag-chunk-delete:hover {
+  background: rgba(239,68,68,0.3);
+}
+
+.rag-add-btn {
+  margin-top: 12px;
+  border: 1px dashed rgba(100,116,139,0.4);
+  width: 100%;
+}
+
+/* Scan Controls */
+.rag-scan-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.btn-large {
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.rag-scan-status {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* KPI Row */
+.rag-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.rag-kpi-card {
+  background: rgba(30, 41, 59, 0.9);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid rgba(100,116,139,0.3);
+}
+
+.rag-kpi-card .kpi-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #e2e8f0;
+}
+
+.rag-kpi-card .kpi-label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.rag-kpi-clean .kpi-num { color: #22c55e; }
+.rag-kpi-poison .kpi-num { color: #ef4444; }
+.rag-kpi-time .kpi-num { color: #a78bfa; font-size: 1.3rem; }
+
+/* Verdict Banner */
+.rag-verdict-banner {
+  border-radius: 12px;
+  padding: 16px 24px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.rag-verdict-banner.verdict-clean {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #86efac;
+}
+
+.rag-verdict-banner.verdict-partial {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fcd34d;
+}
+
+.rag-verdict-banner.verdict-critical {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+/* Result table row colors */
+.rag-row-clean td { background: rgba(34, 197, 94, 0.05); }
+.rag-row-poison td { background: rgba(239, 68, 68, 0.08); }
+
+/* Safe Context Output */
+.rag-context-card { margin-top: 20px; }
+
+.rag-context-box {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 10px;
+  padding: 18px;
+  color: #86efac;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 320px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.rag-results-area { display: flex; flex-direction: column; gap: 16px; }
+
+/* btn-sm */
+.btn-sm { padding: 7px 14px; font-size: 0.8rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .rag-kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .rag-chunk-row { grid-template-columns: 1fr; }
+}
